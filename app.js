@@ -3,12 +3,15 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var pgp = require("pg-promise")(/*options*/);
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var stopsRouter = require('./routes/stops');
 
 var app = express();
+
+var db = pgp("postgres://niya@host:5432/gtfs-okayama");
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
