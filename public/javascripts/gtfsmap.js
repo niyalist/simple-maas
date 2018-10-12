@@ -19,9 +19,8 @@ const geojsonMarkerOptions = {
 function onEachFeature(feature, layer) {
     // does this feature have a property named popupContent?
     if (feature.properties && feature.properties.stop_name) {
-        layer.bindPopup(feature.properties.stop_name);
-
-        console.log(feature.properties.stop_id);
+        const sid = feature.properties.stop_id;
+        layer.bindPopup(feature.properties.stop_name).on('click', updateTimetable);
     }
 }
 
@@ -38,3 +37,32 @@ async function getStops(url) {
         }
     }).addTo(mymap);
 }
+
+async function updateTimetable(event){
+    const stop_id = event.target.feature.properties.stop_id;
+    console.log(event.target.feature.properties.stop_id);
+    const response = await fetch('/timetable/' + stop_id);
+    const json = await response.json();
+//    console.log(json);
+
+    const html = `
+    <table>
+    ${
+        json.map(function(i){
+            return `
+    <tr>
+        <td>${i['service_id']}</td>
+        <td>${i['departure_time']}</td>
+        <td>${i['trip_headsign']}行き</td>
+        <td>${i['route_long_name']}</td>
+        <td>${i['agency_name']}</td>
+        <td>${i['shape_id']}</td>
+    </tr>`;
+        }).join('\n')
+    }
+    </table>
+    `;
+
+    document.querySelector("#timetable").innerHTML = html;
+}
+
