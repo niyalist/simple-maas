@@ -7,19 +7,19 @@ router.get('/', function(req, res, next) {
 
     const query = `
     select
-	'Feature' as type,
-	row_to_json(
-		(
-		select p from (
-			select
-				stop_name as stop_name,
-				stop_id as stop_id
-			) as p
-		)
-	)as properties,
-	st_asGeoJson(geom)::json as geometry
-from
-stops
+    	'Feature' as type,
+	    row_to_json(
+    		(
+		    select p from (
+    			select
+				    stop_name as stop_name,
+    				stop_id as stop_id
+			    ) as p
+    		)
+    	)as properties,
+	    st_asGeoJson(geom)::json as geometry
+    from
+        stops
     `
 
     db.task(async t => {
@@ -27,15 +27,6 @@ stops
         console.log(rtn)
         res.json(rtn)
     })
-//        .then(data => {
-//            // success, data = either {count} or {count, logs}
-//        })
-//        .catch(error => {
-//            // failed    
-//        });
-
-//    db.any('select * from stops')
-
-    });
+});
 
 module.exports = router;
