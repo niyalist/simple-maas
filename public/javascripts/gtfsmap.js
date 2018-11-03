@@ -20,7 +20,7 @@ function onEachFeature(feature, layer) {
     // does this feature have a property named popupContent?
     if (feature.properties && feature.properties.stop_name) {
         const sid = feature.properties.stop_id;
-        layer.bindPopup(feature.properties.stop_name).on('click', updateTimetable);
+        layer.bindPopup(feature.properties.stop_name + " " + feature.properties.stop_id).on('click', updateTimetable);
     }
 }
 
