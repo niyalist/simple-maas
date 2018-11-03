@@ -46,7 +46,7 @@ async function updateTimetable(event){
 //    console.log(json);
 
     const html = `
-    <table>
+    <table class="table table-sm table-hover">
     ${
         json.map(function(i){
             return `
