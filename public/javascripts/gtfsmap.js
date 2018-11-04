@@ -52,9 +52,9 @@ async function updateTimetable(event){
             return `
     <tr>
         <td>${i['service_id']}</td>
-        <td>${i['departure_time']}</td>
-        <td>${i['trip_headsign']}行き</td>
+        <td>${i['departure_time'].substring(0, 5)}</td>
         <td>${i['route_long_name']}</td>
+        <td>${i['trip_headsign']}行き</td>
         <td>${i['agency_name']}</td>
         <td>${i['shape_id']}</td>
     </tr>`;

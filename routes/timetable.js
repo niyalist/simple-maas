@@ -6,7 +6,8 @@ var router = express.Router();
 router.get('/:stop_id', function(req, res, next) {
     const query = `
     select 
-    	departure_time,
+        st.departure_time,
+        st.stop_headsign,
 	    tr.trip_headsign,
     	tr.shape_id,
 	    tr.service_id,
