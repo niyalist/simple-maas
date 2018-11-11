@@ -11,7 +11,9 @@ router.get('/:stop_id', function(req, res, next) {
         st.stop_headsign,
 	    tr.trip_headsign,
     	tr.shape_id,
-	    tr.service_id,
+        tr.service_id,
+        tr.trip_id,
+        rt.route_id,
     	rt.route_long_name,
 	    ag.agency_name
     from

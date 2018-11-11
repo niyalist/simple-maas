@@ -1,4 +1,5 @@
 var mymap = L.map('mapid').setView([34.673716, 133.923387], 15);
+var shapeLayer;
 
 L.tileLayer(
     'http://{s}.tile.osm.org/{z}/{x}/{y}.png', 
@@ -15,6 +16,11 @@ const geojsonMarkerOptions = {
     fillOpacity: 0.8
 };
 
+const shapeStyle = {
+    "color": "#2378e3",
+    "weight": 5,
+    "opacity": 0.65
+};
 
 function onEachFeature(feature, layer) {
     // does this feature have a property named popupContent?
@@ -51,7 +57,7 @@ async function updateTimetable(event){
     ${
         json.stop_times.map(function(i){
             return `
-    <tr class="timetable-line" data-shape_id="${i['shape_id'] }">
+    <tr class="timetable-line" data-shape_id="${i['shape_id']}" data-service_id="${i['service_id']}" data-route_id="${i['route_id']}" data-trip_id="${i['trip_id']}">
         <td>${i['service_id']}</td>
         <td>${i['departure_time'].substring(0, 5)}</td>
         <td>${i['route_long_name']}</td>
@@ -73,15 +79,13 @@ async function updateTimetable(event){
 }
 
 async function displayShape(shape_id){
-    console.log("Start to Display Shape:" + shape_id);
     const response = await fetch('/shape/' + shape_id);
     const json = await response.json();
 
-    L.geoJSON(json, {
-        onEachFeature: onEachFeature,
-        pointToLayer: function (feature, latlng) {
-            return L.circleMarker(latlng, geojsonMarkerOptions);
-        }
-    }).addTo(mymap);
+    if(shapeLayer)shapeLayer.remove();
+    shapeLayer= L.geoJSON(json, {
+            style: shapeStyle
+    })
+    shapeLayer.addTo(mymap);
 
 }
