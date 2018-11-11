@@ -48,13 +48,13 @@ async function updateTimetable(event){
     const html = `
     <table class="table table-sm table-hover">
     ${
-        json.map(function(i){
+        json.stop_times.map(function(i){
             return `
     <tr>
         <td>${i['service_id']}</td>
         <td>${i['departure_time'].substring(0, 5)}</td>
         <td>${i['route_long_name']}</td>
-        <td>${i['trip_headsign']}行き</td>
+        <td>${i['headsign']}行き</td>
         <td>${i['agency_name']}</td>
         <td>${i['shape_id']}</td>
     </tr>`;

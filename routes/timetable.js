@@ -6,6 +6,7 @@ var router = express.Router();
 router.get('/:stop_id', function(req, res, next) {
     const query = `
     select 
+        st.arrival_time,
         st.departure_time,
         st.stop_headsign,
 	    tr.trip_headsign,
@@ -38,8 +39,20 @@ router.get('/:stop_id', function(req, res, next) {
         console.log('DateParam: ' +  req.query.date);
         console.log('DateObj: ' +  date);
         console.log('DATE: ' +  date_to_sql(date));
-        const rtn = await t.any(query, [req.params.stop_id, date_to_sql(date)]);
-        res.json(rtn)
+        const stop_times = await t.any(query, [req.params.stop_id, date_to_sql(date)]);
+
+        // Stop Headsignがあるときはそちらを優先
+        stop_times.forEach(element => {
+           element.headsign = element.stop_headsign? element.stop_headsign : element.trip_headsign; 
+        });
+
+        rtn_obj = {
+            stop_id: req.params.stop_id,
+            date: date_to_sql(date),
+            stop_times: stop_times
+        }
+
+        res.json(rtn_obj)
     })
 });
 
