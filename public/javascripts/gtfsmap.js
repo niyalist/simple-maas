@@ -38,6 +38,7 @@ async function getStops(url) {
     }).addTo(mymap);
 }
 
+
 async function updateTimetable(event){
     const stop_id = event.target.feature.properties.stop_id;
     console.log(event.target.feature.properties.stop_id);
@@ -50,7 +51,7 @@ async function updateTimetable(event){
     ${
         json.stop_times.map(function(i){
             return `
-    <tr>
+    <tr class="timetable-line" data-shape_id="${i['shape_id'] }">
         <td>${i['service_id']}</td>
         <td>${i['departure_time'].substring(0, 5)}</td>
         <td>${i['route_long_name']}</td>
@@ -64,5 +65,23 @@ async function updateTimetable(event){
     `;
 
     document.querySelector("#timetable").innerHTML = html;
+
+    $('.timetable-line').on('click', function(event){
+        displayShape(event.target.parentNode.dataset.shape_id);
+    });
+    
 }
 
+async function displayShape(shape_id){
+    console.log("Start to Display Shape:" + shape_id);
+    const response = await fetch('/shape/' + shape_id);
+    const json = await response.json();
+
+    L.geoJSON(json, {
+        onEachFeature: onEachFeature,
+        pointToLayer: function (feature, latlng) {
+            return L.circleMarker(latlng, geojsonMarkerOptions);
+        }
+    }).addTo(mymap);
+
+}
