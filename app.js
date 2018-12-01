@@ -8,6 +8,7 @@ var indexRouter = require('./routes/index');
 var stopsRouter = require('./routes/stops');
 var timetableRouter = require('./routes/timetable');
 var shapeRouter = require('./routes/shape');
+var timesRouter = require('./routes/times');
 
 var app = express();
 
@@ -26,6 +27,7 @@ app.use('/', indexRouter);
 app.use('/stops', stopsRouter);
 app.use('/timetable', timetableRouter);
 app.use('/shape', shapeRouter);
+app.use('/times', timesRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
