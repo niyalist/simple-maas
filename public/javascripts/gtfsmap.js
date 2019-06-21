@@ -1,4 +1,5 @@
-var mymap = L.map('mapid').setView([34.673716, 133.923387], 15);
+var mymap = L.map('mapid').setView([33.260192, 130.301352], 15);
+
 var shapeLayer;
 
 L.tileLayer(
