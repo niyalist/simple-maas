@@ -1,5 +1,6 @@
 node_modules/
 .elasticbeanstalk/
+start.sh
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
