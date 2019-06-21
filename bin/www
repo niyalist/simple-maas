@@ -5,7 +5,7 @@
  */
 
 var app = require('../app');
-var debug = require('debug')('gtfs-okayama:server');
+var debug = require('debug')('simple-maas:server');
 var http = require('http');
 
 /**

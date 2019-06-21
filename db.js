@@ -3,6 +3,6 @@ var options = {
 };
 
 var pgp = require("pg-promise")(options);
-var db = pgp("postgres://niya@localhost:5432/gtfs-okayama");
+var db = pgp("postgres://niya@localhost:5432/gtfs-saga");
  
 module.exports = db;
