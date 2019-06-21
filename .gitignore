@@ -1,6 +1,7 @@
 node_modules/
 .elasticbeanstalk/
 start.sh
+start.bat
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*

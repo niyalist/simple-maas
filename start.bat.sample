@@ -1,0 +1,6 @@
+set RDS_USERNAME=postgres
+set RDS_PASSWORD=postgres
+set RDS_HOSTNAME=localhost
+set RDS_PORT=5432
+set DEBUG=simple-maas:*
+npm start
